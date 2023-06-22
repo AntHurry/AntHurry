@@ -2,6 +2,7 @@ package com.ant.hurry.base.rq;
 
 import com.ant.hurry.base.rsData.RsData;
 import com.ant.hurry.boundedContext.member.entity.Member;
+import com.ant.hurry.boundedContext.member.exception.NoSuchMemberException;
 import com.ant.hurry.boundedContext.member.service.MemberService;
 import com.ant.hurry.standard.util.Ut;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 @RequestScope
@@ -76,13 +78,18 @@ public class Rq {
         return !isLogin();
     }
 
+    private void checkNullUser(User user){
+        Optional<User> checkUser = Optional.ofNullable(user);
+        checkUser.orElseThrow(NoSuchMemberException::new);
+    }
+
     // 로그인 된 회원의 객체
     public Member getMember() {
         if (isLogout()) return null;
-
+        checkNullUser(user);
         // 데이터가 없는지 체크
         if (member == null) {
-            member = memberService.findByUsername(user.getUsername()).orElseThrow();
+            member = memberService.findByUsername(user.getUsername()).orElseThrow(NoSuchMemberException::new);
         }
 
         return member;

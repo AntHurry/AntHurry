@@ -8,7 +8,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+
 import java.util.stream.Collectors;
+
 
 @ControllerAdvice
 @RequiredArgsConstructor
@@ -33,7 +35,5 @@ public class GlobalExceptionHandler {
     public String handleNoSuchData(final NullPointerException e) {
         return rq.historyBack(e.getMessage());
     }
-
-
 
 }
