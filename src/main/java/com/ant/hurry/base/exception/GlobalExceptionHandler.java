@@ -1,6 +1,7 @@
 package com.ant.hurry.base.exception;
 
 import com.ant.hurry.base.rq.Rq;
+import com.ant.hurry.boundedContext.member.exception.NoSuchMemberException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,4 +26,14 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.joining("/"));
         return rq.historyBack(msg);
     }
+
+    @ExceptionHandler({
+            NoSuchMemberException.class,
+    })
+    public String handleNoSuchData(final NullPointerException e) {
+        return rq.historyBack(e.getMessage());
+    }
+
+
+
 }
