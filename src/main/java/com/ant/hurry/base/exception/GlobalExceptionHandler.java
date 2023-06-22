@@ -1,5 +1,6 @@
 package com.ant.hurry.base.exception;
 
+import com.ant.hurry.base.exception.exceptions.BusinessException;
 import com.ant.hurry.base.rq.Rq;
 import com.ant.hurry.boundedContext.member.exception.NoSuchMemberException;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,11 @@ public class GlobalExceptionHandler {
             NoSuchMemberException.class,
     })
     public String handleNoSuchData(final NullPointerException e) {
+        return rq.historyBack(e.getMessage());
+    }
+
+    @ExceptionHandler({BusinessException.class})
+    public String handleNoSuchData(final RuntimeException e) {
         return rq.historyBack(e.getMessage());
     }
 
