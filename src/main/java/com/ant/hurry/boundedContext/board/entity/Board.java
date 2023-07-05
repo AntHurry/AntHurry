@@ -4,7 +4,6 @@ import com.ant.hurry.base.baseEntity.BaseEntity;
 import com.ant.hurry.boundedContext.board.dto.CreateConvertDTO;
 import com.ant.hurry.boundedContext.board.dto.CreateRequest;
 import com.ant.hurry.boundedContext.member.entity.Member;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,7 +38,7 @@ public class Board extends BaseEntity {
     private String regCode;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
     public void updateBoard(CreateRequest createRequest) {
